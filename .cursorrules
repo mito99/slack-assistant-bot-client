@@ -2,3 +2,4 @@ pip ではなく、uv を使ってパッケージを管理します。
  => 例: uv add pydantic
 srcディレクトリ構成とします。
  => 例: src/services/message_service.py
+ => PYTHONPATH=src と定義しているので、import で src ディレクトリを指定しなくても大丈夫です。

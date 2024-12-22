@@ -13,11 +13,12 @@ class SlackSettings(BaseSettings):
 
     bot_token: Optional[str] = Field(None, alias="SLACK_BOT_TOKEN")
     app_token: Optional[str] = Field(None, alias="SLACK_APP_TOKEN")
-    signing_secret: Optional[str] = Field(None, alias="SLACK_SIGNING_SECRET")
+    bot_app_id: Optional[str] = Field(None, alias="SLACK_BOT_APP_ID")
 
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
+        extra = "allow"
 
 
 class LoggingSettings(BaseModel):
