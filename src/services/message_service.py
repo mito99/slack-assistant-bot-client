@@ -109,9 +109,9 @@ class MessageService:
             except Exception as e:
                 self.logger.error(f"Error handling message: {e}", exc_info=True)
 
-        # Socket Modeの応答を返す
+        # # Socket Modeの応答を返す
         response = SocketModeResponse(envelope_id=req.envelope_id)
-        client.send_response(response)
+        client.send_socket_mode_response(response)
 
     def send_message(self, channel_id: str, text: str) -> Optional[dict]:
         """
