@@ -17,6 +17,7 @@ def invoke_message_service(
     title: Optional[str] = None,
     snippet_type: Optional[str] = None,
     rm: bool = False,
+    wait_time: int = 10,
 ):
     response_received = False
     chat_user_id = user_id
@@ -62,7 +63,7 @@ def invoke_message_service(
             print(f"✅ ファイルの送信に成功しました。File ID: {file_id}")
 
             # 返信を待つ
-            for _ in range(10):
+            for _ in range(wait_time):
                 time.sleep(1)
                 if response_received:
                     break
@@ -91,6 +92,13 @@ def main():
     parser.add_argument(
         "--rm", action="store_true", help="アップロードしたファイルを削除する"
     )
+    parser.add_argument(
+        "-w",
+        "--wait_time",
+        type=int,
+        default=10,
+        help="レスポンスを待機する秒数（デフォルト: 10秒）",
+    )
     args = parser.parse_args()
 
     invoke_message_service(
@@ -100,6 +108,7 @@ def main():
         title=args.title,
         snippet_type=args.snippet_type,
         rm=args.rm,
+        wait_time=args.wait_time,
     )
 
 

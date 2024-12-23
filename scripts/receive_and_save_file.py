@@ -12,7 +12,7 @@ from services.message_service import MessageService
 
 
 def invoke_send_message(
-    user_id: str, message: str, download_dir: str, rm: bool = False
+    user_id: str, message: str, download_dir: str, rm: bool = False, wait_time: int = 10
 ):
     response_received = False
 
@@ -113,7 +113,7 @@ def invoke_send_message(
 
                 # ファイルが送信されるのを待機
                 print("ファイルの受信を待機中...")
-                for _ in range(10):
+                for _ in range(wait_time):
                     time.sleep(1)
                     if response_received:
                         break
@@ -148,11 +148,24 @@ def main():
         action="store_true",
         help="ダウンロード後にファイルを削除する",
     )
+    parser.add_argument(
+        "-w",
+        "--wait_time",
+        type=int,
+        default=10,
+        help="レスポンスを待機する秒数（デフォルト: 10秒）",
+    )
     args = parser.parse_args()
 
-    invoke_send_message(args.user_id, args.message, args.download_dir, rm=args.rm)
+    invoke_send_message(
+        args.user_id,
+        args.message,
+        args.download_dir,
+        rm=args.rm,
+        wait_time=args.wait_time,
+    )
 
 
 if __name__ == "__main__":
-    # main()
-    invoke_send_message("U0868DNBAAC", "get 勤怠 README.md", "./tmp", rm=True)
+    main()
+    # invoke_send_message("U0868DNBAAC", "get 勤怠 README.md", "./tmp", rm=True)
